@@ -1,0 +1,1 @@
+docker run -it -v `pwd`:/app phoenix12 bash

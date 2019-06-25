@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      # Variables to connect to our Postgres server
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: discuss_dev
+      PGPORT: 5432
+      # Hostname of our Postgres container
+      PGHOST: db  
+  db:
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      # Set user/password for Postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Set a path where Postgres should store the data  
+volumes:
+  pgdata:  
